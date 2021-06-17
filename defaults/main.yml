@@ -1,0 +1,13 @@
+---
+
+hitchhiker_architecuture: "amd64"
+hitchhiker_name: "Hitchhiker-HomeAssistant"
+
+hitchhiker_admin_user:
+  name: Admin
+  username: admin
+  password: admin
+
+hitchhiker_users: []
+
+hitchhiker_homeassistant_components: []
