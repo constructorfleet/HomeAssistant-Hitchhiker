@@ -1,0 +1,102 @@
+---
+
+valid_hitchhiker_architectures:
+  - aarch64
+  - armhf
+  - armv7
+  - amd64
+  - i386
+
+hitchhiker_type: homeassistant
+
+hitchhiker_base_image: python:3.8.10-alpine3.13
+
+homeassistant_core_packages:
+  - bsd-compat-headers
+  - eudev
+  - eudev-libs
+  - grep
+  - libffi
+  - libjpeg
+  - libjpeg-turbo
+  - libpng
+  - libstdc++
+  - musl
+  - openssl
+  - pulseaudio-alsa
+  - tiff
+
+homeassistant_base_component_packages:
+  - bluez
+  - bluez-deprecated
+  - bluez-libs
+  - cups-libs
+  - curl
+  - ffmpeg
+  - ffmpeg-libs
+  - freetds
+  - gammu-libs
+  - git
+  - vim
+  - glib
+  - gmp
+  - iperf3
+  - libexecinfo
+  - libpcap
+  - libsodium
+  - libwebp
+  - libxml2
+  - libxslt
+  - mariadb-connector-c
+  - mpc1
+  - mpfr4
+  - net-tools
+  - nmap
+  - openssh-client
+  - pianobar
+  - postgresql-libs
+  - pulseaudio-utils
+  - socat
+  - unixodbc
+  - zlib
+  - avahi
+
+homeassistant_required_pip_packages:
+  - brotli==1.0.9
+  - cchardet==2.1.7
+  - mysqlclient==2.0.3
+  - psycopg2==2.8.6
+  - pyodbc==4.0.30
+  
+homeaassistant_required_wheel_packages:
+  - stdlib_list
+  - tqdm
+
+hitchhiker_user_list: "{{ hitchhiker_users | default([]) + [hitchhiker_admin_user] }}"
+invalid_username_characters:
+  - "-"
+  - " "
+  - "^"
+  - "!"
+  - "$"
+  - "*"
+
+component_source_core: "core"
+component_source_hacs: "hacs"
+valid_component_sources:
+  - "{{ component_source_core }}"
+  - "{{ component_source_hacs }}"
+
+homeassistant_username_regex: "^[a-z][a-z_]+[a-z]$"
+homeassistant_hacs_repo_regex: "^https?:\/\/[^\s$.?#].[^\s]*$"
+
+homeassistant_repo: https://github.com/home-assistant/core.git
+minimized_homeassistant_repo: https://github.com/constructorfleet/home-assistant-loader.git
+
+hitchhiker_working_directory: /usr/src/
+homeassistant_directory: "{{ hitchhiker_working_directory }}/homeassistant"
+homeassistant_component_directory: "{{ hitchhiker_homeassistant_directory }}/homeassistant/components"
+
+homeassistant_wheels_link: "https://wheels.home-assistant.io/alpine-3.12/{{ homeassistant_wheels_link }}}/"
+pip_find_links_argument: '--find_links "{{ homeassistant_wheels_link }}"'
+pip_installation_arguments: '--no-cache-dir --no-index --only-binary=:all: {{ pip_find_links_argument }}"'
