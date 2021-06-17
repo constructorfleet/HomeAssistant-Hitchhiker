@@ -1,0 +1,43 @@
+---
+
+- name: Wait for the container to start
+  uri:
+    url: '{{ hitchhiker_config.url.external }}/api/onboarding'
+    status_code: 200
+    method: GET
+    headers:
+      Host: "{{ hitchhiker_url_schemeless }}"
+      Origin: "{{ hitchhiker_url_schemeless }}"
+    return_content: yes
+  register: onboarding_status
+  until: onboarding_status.status == 200
+  retries: 60
+  delay: 1
+
+- name: Log in to hitchhiker
+  include_tasks: login.yml
+
+- name: Set token creation payload fact
+  set_fact:
+    token_creation_payload:
+      client_id: "{{ client_id }}"
+      code: '{{ authorization_code }}'
+      grant_type: authorization_code
+
+- name: Get refresh token for admin user
+  uri:
+    url: '{{ hitchhiker.gps.external }}/auth/token'
+    method: POST
+    headers:
+      Host: "{{ hitchhiker_url_schemeless }}"
+      Origin: "{{ hitchhiker_url_schemeless }}"
+#    body_format: form-urlencoded
+    body:
+      client_id: "{{ client_id }}"
+      refresh_token: "{{ hitchhiker_refresh_token }}"
+      grant_type: refresh_token
+    return_content: yes
+  register: refresh_token
+
+- debug:
+    var: refresh_token

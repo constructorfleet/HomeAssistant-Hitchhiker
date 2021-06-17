@@ -1,0 +1,49 @@
+---
+
+- name: Start login process
+  uri:
+    url: "{{ hitchhiker_config.url.external }}/auth/login_flow"
+    status_code: 200
+    method: POST
+    body_format: json
+    body:
+      client_id: "{{ client_id }}"
+      type: "authorize"
+      redirect_uri: "{{ hitchhiker_config.url.external }}"
+      handler:
+       - ("homeassistant", None)
+    headers:
+      Host: "{{ hitchhiker_url_schemeless }}"
+      Origin: "{{ hitchhiker_url_schemeless }}"
+    return_content: yes
+  register: hitchhiker_login_start
+  until: onboarding_status.status == 200
+  retries: 60
+  delay: 1
+
+- name: Verify result of web requests
+  assert:
+    that:
+      - hitchhiker_login_start.json().get("flow_id", None) != None
+
+- name: Set state facts
+  set_fact:
+    flow_id: hitchhiker_login_start.json()["flow_id"]
+
+- name: Get authorization code
+  uri:
+    url: '{{ hitchhiker_config.url.external }}/auth/login_flow/{{ flow_id }}'
+    status_code: 200
+    method: POST
+    body_format: json
+    body:
+      client_id: "{{ client_id }}"
+      handler: ("homeassistant", None)
+      redirect_uri: "{{ hitchhiker_config.url.external }}"
+      type: "authorize"
+    headers:
+      Host: "{{ hitchhiker_url_schemeless }}"
+      Origin: "{{ hitchhiker_url_schemeless }}"
+    return_content: yes
+  register: hitchhiker_login_flow
+
