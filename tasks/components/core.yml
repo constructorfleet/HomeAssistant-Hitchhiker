@@ -1,0 +1,21 @@
+---
+
+- name: "Check out version {{ component.version }} of the core Home-Assistant repository"
+  git:
+    repo: "{{ hitchhiker_homeassistant_repo }}"
+    depth: 1
+    version: "{{ component.version }}"
+    dest: /tmp/homeassistant
+
+- name: "Copy {{ component.name }} to {{ homeassistant_component_directory }}"
+  copy:
+    remote_src: yes
+    src: "/tmp/homeassistant/homeassistant/components/{{ component.name }}"
+    dest: "{{ homeassistant_component_directory }}/{{ component.name }}/"
+
+- name: Clean up
+  file:
+    path: /tmp/homeassistant
+    state: absent
+
+

@@ -1,0 +1,37 @@
+---
+
+- name: Validate variables
+  include_tasks:
+    file: validation.yml
+
+- name: Install prerequisites
+  include_tasks:
+    file: setup/prerequisites.yml
+
+- name: Install pip prerequisites
+  include_tasks:
+    file: setup/pip_requirements.yml
+
+- name: Copy /etc files
+  include_tasks:
+    file: setup/rootfs.yml
+
+- name: Setup Home-Assistant
+  include_tasks:
+    file: setup/home-assistant.yml
+
+- name: Install components
+  include_tasks:
+    file: "components/{{ component.src }}.yml"
+  loop: "{{ homeassistant_components }}"
+  loop_control:
+    loop_var: component
+    label: "{{ component.name }} ({{ component.src }})"
+
+- name: Install and complie python pip paackages
+  include_tasks:
+    file: setup/compile_pip_requirement.yml
+
+- name: Render configuration files
+  include_tasks:
+    file: setup/configuration.yml

@@ -1,0 +1,7 @@
+---
+
+- name: Copy udev service script
+  copy:
+    src: etc/
+    dest: /etc/
+

@@ -1,0 +1,11 @@
+---
+
+- name: Install core pip prerequisites
+  pip:
+    name: "{{ homeassistant_required_pip_packages }}"
+    extra_args: "{{ pip_installation_arguments }}"
+
+- name: Install core pip wheel requirements
+  pip:
+    name: "{{ homeaassistant_required_wheel_packages }}"
+    extra_args: "{{ pip_find_links_argument }}"

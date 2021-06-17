@@ -1,0 +1,28 @@
+---
+
+- name: Install required core packages
+  package:
+    name: "{{ homeassistant_core_packages }}"
+    state: present
+
+- name: Create symbolic link for locale header
+  file:
+    src: /usr/include/locale.h
+    dest: /usr/include/xlocale.h
+    state: link
+
+- name: Install base component packages
+  package:
+    name: "{{ homeassistant_base_component_packages }}"
+    state: present
+
+- name: Disable Avahi Daemon dbus
+  replace:
+    path: /etc/avahi/avahi-daemon.conf
+    regexp: "(#enable-dbus=(?:yes|no))"
+    replace: "enable-dbus=no"
+
+- name: Cleanup package cache
+  file:
+    path: /var/cache/apk/*
+    state: absent

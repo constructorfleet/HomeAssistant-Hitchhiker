@@ -1,0 +1,30 @@
+---
+
+- name: "Check out version {{ component.version }} of HACS repo {{ component.repo }}"
+  git:
+    repo: "{{ component.repo }}"
+    depth: 1
+    version: "{{ component.version }}"
+    dest: /tmp/hacs
+
+- name: "Copy {{ component.name }} to {{ homeassistant_component_directory }}"
+  block:
+    - copy:
+        remote_src: yes
+        src: "/tmp/hacs/{{ component.name }}"
+        dest: "{{ homeassistant_component_directory }}/{{ component.name }}"
+      when:
+        - '{{ "/tmp/hacs/"~component.name is directory }}'
+    - copy:
+        remote_src: yes
+        src: "/tmp/hacs/custom_components/{{ component.name }}"
+        dest: "{{ homeassistant_component_directory }}/{{ component.name }}/"
+      when:
+        - '{{ "/tmp/hacs/custom_components/"~component.name is directory }}'
+
+- name: Clean up
+  file:
+    path: /tmp/hacs
+    state: absent
+
+

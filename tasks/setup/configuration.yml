@@ -1,0 +1,21 @@
+---
+
+- name: Remove any existing configuration directory
+  file:
+    path: /config
+    state: absent
+
+- name: Ensure configuration directory exists
+  file:
+    path: /config
+    state: directory
+
+- name: Rendor configuration file to /config
+  template:
+    src: configuration.yaml.j2
+    dest: /config/configuration.yaml
+
+- name: Rendor customization file to /config
+  template:
+    src: customization.yaml.j2
+    dest: /config/customization.yaml
