@@ -1,0 +1,56 @@
+---
+
+- name: Validate Hitchhiker's specified architecture
+  assert:
+    that:
+      - hitchhiker_architecuture in valid_hitchhiker_architectures
+    success_msg: "{{ hitchhiker_architecuture }} is a valid option"
+    fail_msg: |
+      Architecture {{ hitchhiker_architecuture }} must be one of {{ valid_hitchhiker_architectures | join(', ') }}
+
+- name: Validate Hitchhiker Usernames
+  assert:
+    that:
+      - user.username is defined
+      - user.username | length > 0
+      - (user.username | list) | intersect(invalid_username_characters) | length == 0
+    fail_msg: "Invalid username for user {{ user.username | default("NOT DEFINED") }}"
+    success_msg: "All usernames are valid"
+  loop: "{{ hitchhiker_user_list }}"
+  loop_control:
+    loop_var: user
+    index: "{{ user.username | default("Unknown User") }}"
+
+- name: Validate Hitchhiker user passwords
+  assert:
+    that:
+      - user.password is defined
+      - user.password | lenght > 0
+    fail_msg: "Invalid password for user {{ user.username }}"
+    success_msg: "All passwords are valid"
+  loop: "{{ hitchhiker_user_list }}"
+  loop_control:
+    loop_var: user
+    index: "{{ user.username | default("Unknown User") }}"
+
+- name: Validate Hitchhiker Home-Assistant components are specified
+  assert:
+    that:
+      - hitchhiker_homeassistant_components is defined
+      - hitchhiker_homeassistant_components | len > 0
+    fail_msg: "You must specify the components to install"
+    success_msg: "Components are defined"
+
+- name: Validate Hitchhiker Home-Assistant components are to specification
+  assert:
+    that:
+      - component.src is defined
+      - component.src in valid_component_sources
+      - component.version is defined
+      - component.version | length > 0
+      - component.name is defined
+      - component.name | lower is match(homeassistant_username_regex)
+      - True if component.src ~= component_source_hacs else (component.repo is match(homeassistant_hacs_repo_regex))
+  loop: "{{ hitchhiker_homeassistant_components }}"
+  loop_control:
+    loop_var: component
