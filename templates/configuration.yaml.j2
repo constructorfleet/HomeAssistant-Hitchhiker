@@ -23,3 +23,9 @@ http:
 {% if integration_configuration is defined %}
 {{ integration_configuration | to_nice_yaml(indent=2) }}
 {% endif %}
+
+logger:
+  default: '{{ homeassistant_log_level_default }}'
+{% if homeassistant_log_level_components | default({}) | length > 0 %}
+  logs: {{ homeassistant_log_level_components }}
+{% endif %}

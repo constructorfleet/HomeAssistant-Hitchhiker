@@ -96,6 +96,15 @@ homeassistant_valid_unit_systems:
   - imperial
   - metric
 
+homeassistant_valid_log_levels:
+  - critical
+  - fatal
+  - error
+  - warning
+  - warn
+  - info
+  - debug
+
 homeassistant_username_regex: "^[a-z][a-z_]+[a-z]$"
 
 homeassistant_repo: https://github.com/home-assistant/core.git
