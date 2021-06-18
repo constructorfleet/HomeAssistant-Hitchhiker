@@ -9,6 +9,9 @@ homeassistant:
 
 api:
 
+{{ "" if not homeassistant_enable_zeroconf else "zeroconf:" }}
+{{ "" if not homeassistant_enable_ssdp else "ssdp:" }}
+
 {%- if homeassistant_enable_frontend -%}
 frontend:
 

@@ -23,3 +23,6 @@ homeassistant_enable_frontend: yes
 homeassistant_log_level_default: info
 homeassistant_log_level_components: {}
 
+homeassistant_enable_zeroconf: no
+homeassistant_enable_ssdp: no
+

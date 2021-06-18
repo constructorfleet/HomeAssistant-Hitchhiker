@@ -51,6 +51,8 @@ Role Variables
 
 ### Options
 
+`homeassistant_enable_zeroconf` - Flag for installing and configuring zeroconf  
+`homeassistant_enable_ssdp` - Flag for installing and configuring SSDP  
 `homeassistant_log_level_default` - The default log output level, must be critical, fatal, warning, warn, info, debug  
 `homeassistant_log_level_components` - A dictionary defining the log output level for a component  
 
