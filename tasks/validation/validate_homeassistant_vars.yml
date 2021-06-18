@@ -82,7 +82,7 @@
       - component.version | length > 0
       - component.name is defined
       - component.name | lower is match(homeassistant_username_regex)
-      - True if component.src ~= component_source_hacs else (component.repo is match(homeassistant_hacs_repo_regex))
+#      - True if component.src ~= component_source_hacs else (component.repo is match(homeassistant_hacs_repo_regex))
   loop: "{{ hitchhiker_homeassistant_components }}"
   loop_control:
     loop_var: component
