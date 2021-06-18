@@ -1,5 +1,10 @@
 ---
 
+url_regex: "^https?:\/\/[^\s$.?#].[^\s]*$"
+
+hitchhiker_default_ports:
+  - 8123
+
 valid_hitchhiker_architectures:
   - aarch64
   - armhf
@@ -87,8 +92,11 @@ valid_component_sources:
   - "{{ component_source_core }}"
   - "{{ component_source_hacs }}"
 
+homeassistant_valid_unit_systems:
+  - imperial
+  - metric
+
 homeassistant_username_regex: "^[a-z][a-z_]+[a-z]$"
-homeassistant_hacs_repo_regex: "^https?:\/\/[^\s$.?#].[^\s]*$"
 
 homeassistant_repo: https://github.com/home-assistant/core.git
 minimized_homeassistant_repo: https://github.com/constructorfleet/home-assistant-loader.git
