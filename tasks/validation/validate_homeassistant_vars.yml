@@ -33,6 +33,34 @@
     loop_var: user
     index: "{{ user.username | default("Unknown User") }}"
 
+- name: Validate Hitchhiker Home-Assistant coordinates
+  assert:
+    that:
+      - homeassistant_home_latitude is defined
+      - homeassistant_home_latitude >= -90
+      - homeassistant_home_latitude <= 90
+      - homeassistant_home_longitude is defined
+      - homeassistant_home_longitude >= -180
+      - homeassistant_home_longitude <= 180
+    fail_msg: "Invalid home cordinates, must be (-90..90),(-180..180)"
+    success_msg: "Valid home coordinates ({{ homeassistant_home_latitude }},{{ homeassistant_home_longitude }})"
+
+- name: Validate Hitchhiker Home-Assistant elevation
+  assert:
+    that:
+      - homeassistant_home_elevation is defined
+      - homeassistant_home_elevation > 0
+    fail_msg: "Invalid home elevation {{ homeassistant_home_elevation }}, must be positive"
+    success_msg: "Valide home elevation {{ homeassistant_home_elevation }}"
+
+- name: Validate Hitchhiker Home-Assistant unit system
+  assert:
+    that:
+      - homeassistant_unit_system is defined
+      - homeassistant_unit_system in homeassistant_valid_unit_systems
+    fail_msg: "Invalid unit system {{ homeassistant_unit_system }} specified, must be one of {{ homeassistant_valid_unit_systems | join(', ') }}"
+    success_msg: "Valid unit system {{ homeassistant_unit_system }}"
+
 - name: Validate Hitchhiker Home-Assistant components are specified
   assert:
     that:
