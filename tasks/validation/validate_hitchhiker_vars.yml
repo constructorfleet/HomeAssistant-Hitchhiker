@@ -1,0 +1,20 @@
+---
+
+- name: Validate Hitchhiker's specified architecture
+  assert:
+    that:
+      - hitchhiker_architecuture in valid_hitchhiker_architectures
+    success_msg: "{{ hitchhiker_architecuture }} is a valid option"
+    fail_msg: |
+      Architecture {{ hitchhiker_architecuture }} must be one of {{ valid_hitchhiker_architectures | join(', ') }}
+
+- name: Validate Hitchhiker's volume mounts
+  assert:
+    that:
+      - volume_mount is string
+      - "{{ volume_mount.split(':') | length > 1 }}"
+      - "{{ volume_mount.split(':')[0] is exists }}"
+      - "{{ volume_mount.split(':') | length == 2 or volume_mount.split(':')[2] in ['ro', 'z', 'rw'] }}"
+  loop: "{{ hitchhiker_volume_mounts }}"
+  loop_control:
+    loop_var: volume_mount

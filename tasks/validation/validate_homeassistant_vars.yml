@@ -1,13 +1,5 @@
 ---
 
-- name: Validate Hitchhiker's specified architecture
-  assert:
-    that:
-      - hitchhiker_architecuture in valid_hitchhiker_architectures
-    success_msg: "{{ hitchhiker_architecuture }} is a valid option"
-    fail_msg: |
-      Architecture {{ hitchhiker_architecuture }} must be one of {{ valid_hitchhiker_architectures | join(', ') }}
-
 - name: Validate Hitchhiker Usernames
   assert:
     that:

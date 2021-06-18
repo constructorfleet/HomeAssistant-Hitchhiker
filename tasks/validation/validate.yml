@@ -1,0 +1,7 @@
+---
+
+- include_tasks:
+    file: validation/validate_hitchhiker_vars.yml
+
+- include_tasks:
+    file: validation/validate_homeassistant_vars.yml
