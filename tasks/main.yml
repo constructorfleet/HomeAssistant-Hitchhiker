@@ -6,11 +6,11 @@
 
 - name: Install prerequisites
   include_tasks:
-    file: setup/prerequisites.yml
+    file: setup/pkg_prerequisites.yml
 
 - name: Install pip prerequisites
   include_tasks:
-    file: setup/pip_requirements.yml
+    file: setup/pip_prerequisites.yml
 
 - name: Copy /etc files
   include_tasks:
