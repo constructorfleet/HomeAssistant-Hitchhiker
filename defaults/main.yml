@@ -11,3 +11,10 @@ hitchhiker_admin_user:
 hitchhiker_users: []
 
 hitchhiker_homeassistant_components: []
+
+homeassistant_home_latitude: 32.87336
+homeassistant_home_longitude: 117.22743
+homeassistant_home_elevation: 430
+homeassistant_unit_system: imperial
+homeassistant_timezone: America/Los_Angeles
+
