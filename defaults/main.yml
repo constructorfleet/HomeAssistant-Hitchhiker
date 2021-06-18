@@ -2,6 +2,7 @@
 
 hitchhiker_architecuture: "amd64"
 hitchhiker_name: "Hitchhiker-HomeAssistant"
+hitchhiker_volume_mounts: []
 
 hitchhiker_admin_user:
   name: Admin

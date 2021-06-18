@@ -2,7 +2,7 @@
 
 - name: Validate variables
   include_tasks:
-    file: validation.yml
+    file: validation/validate.yml
 
 - name: Install prerequisites
   include_tasks:
