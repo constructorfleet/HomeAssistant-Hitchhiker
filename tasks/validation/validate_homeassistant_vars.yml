@@ -17,7 +17,7 @@
   assert:
     that:
       - user.password is defined
-      - user.password | lenght > 0
+      - user.password | length > 0
     fail_msg: "Invalid password for user {{ user.username }}"
     success_msg: "All passwords are valid"
   loop: "{{ hitchhiker_user_list }}"
