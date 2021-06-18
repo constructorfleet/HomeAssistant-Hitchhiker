@@ -1,6 +1,6 @@
 ---
 
-url_regex: "^https?:\/\/[^\s$.?#].[^\s]*$"
+#url_regex: "^https?:\/\/[^\s$.?#].[^\s]*$"
 
 hitchhiker_default_ports:
   - 8123
