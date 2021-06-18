@@ -53,6 +53,18 @@
     fail_msg: "Invalid unit system {{ homeassistant_unit_system }} specified, must be one of {{ homeassistant_valid_unit_systems | join(', ') }}"
     success_msg: "Valid unit system {{ homeassistant_unit_system }}"
 
+- name: Validate Hitchhiker Home-Assistant log levels
+  assert:
+    that:
+      - log_level.value is in homeassistant_valid_log_levels
+      - log_level.key is string
+    fail_msg: "Invalid log level, must be one of {{ homeassistant_valid_log_levels | join(', ') }}"
+    success_msg: "Valid log level {{ log_level.value }} for {{ log_leve.key }}"
+  loop: "{{ homeassistant_log_level_components | default({}) | combine({'default': homeassistant_log_level_default}) | dict2items }}"
+  loop_control:
+    loop_var: log_level
+    label: "{{ log_level.key }}"
+
 - name: Validate Hitchhiker Home-Assistant components are specified
   assert:
     that:

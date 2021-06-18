@@ -18,3 +18,8 @@ homeassistant_home_elevation: 430
 homeassistant_unit_system: imperial
 homeassistant_timezone: America/Los_Angeles
 
+homeassistant_enable_frontend: yes
+
+homeassistant_log_level_default: info
+homeassistant_log_level_components: {}
+

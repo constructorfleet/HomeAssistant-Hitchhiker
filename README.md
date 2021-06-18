@@ -51,6 +51,9 @@ Role Variables
 
 ### Options
 
+`homeassistant_log_level_default` - The default log output level, must be critical, fatal, warning, warn, info, debug  
+`homeassistant_log_level_components` - A dictionary defining the log output level for a component  
+
 #### Authentication (WIP)
 
 To enable and configure the LDAP authentication provider, set the following variable:

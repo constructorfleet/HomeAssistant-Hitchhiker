@@ -1,29 +1,19 @@
 homeassistant:
-  name: "{{ hitchhiker_name }}"
+  name: {{ hitchhiker_name }}
   customize: !include customization.yaml
-{% if hitchhiker_config.gps.latitude is defined and hitchhiker_config.gps.longitude is defined and hitchhiker_config.gps.altitude is defined %}
-  latitude: "{{ hitchhiker_config.gps.latitude }}"
-  longitude: "{{ hitchhiker_config.gps.longitude }}"
-  elevation: "{{ hitchhiker_config.gps.altitude }}"
-{% endif %}
-  unit_system: "{{ hitchhiker_config.localization.unit_system | default('imperial') }}"
-  temperature_unit: "{{ hitchhiker_config.localization.temperature_unit | default('F') }}"
-{% if hitchhiker_config.timezone is defined %}
-  time_zone: "{{ hitchhiker_config.timezone }}"
-{% endif %}
-
-
-logger:
-  default: '{{ default_log_level | default("DEBUG") }}'
-{% if component_log_levels is defined %}
-  logs: {{ component_log_levels | default({}) }}
-{% endif %}
+  latitude: {{ homeassistant_home_latitude }}
+  longitude: {{ homeassistant_home_longitude }}
+  elevation: {{ homeassistant_home_elevation }}
+  unit_system: {{ homeassistant_unit_system }}
+  time_zone: {{ homeassistant_timezone }}
 
 api:
 
+{%- if homeassistant_enable_frontend -%}
 frontend:
 
 lovelace:
+{%- endif -%}
 
 http:
 
