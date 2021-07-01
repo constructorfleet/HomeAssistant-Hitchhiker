@@ -1,5 +1,9 @@
 ---
 
+- name: Upgraade pip
+  shell:
+    cmd: python3 -m pip install -U pip
+
 - name: Install core pip prerequisites
   shell:
     cmd: "pip3 install {{ pip_installation_arguments }} {{ item }}"
