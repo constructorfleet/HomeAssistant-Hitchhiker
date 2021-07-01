@@ -112,9 +112,6 @@ minimized_homeassistant_repo: https://github.com/constructorfleet/home-assistant
 
 hitchhiker_working_directory: /usr/src/
 homeassistant_directory: "{{ hitchhiker_working_directory }}/homeassistant"
-homeassistant_component_directory: "{{ hitchhiker_homeassistant_directory }}/homeassistant/components"
-homeassistant_config_directory: /config
-homeaasistant_custom_component_directory: "{{ homeassistant_config_directory }}/custom_components"
 
 homeassistant_wheels_link: "https://wheels.home-assistant.io/alpine-3.12/{{ homeassistant_wheels_link }}}/"
 pip_find_links_argument: '--find_links "{{ homeassistant_wheels_link }}"'

@@ -12,7 +12,7 @@
 
 - name: Ensure custom component directory exists
   file:
-    path: "{{ homeassistant_custom_component_directory }}"
+    path: "{{ homeaasistant_custom_component_directory }}"
     state: directory
 
 - name: Rendor configuration file to /config
