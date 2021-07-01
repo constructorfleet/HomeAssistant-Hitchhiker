@@ -87,6 +87,8 @@ invalid_username_characters:
   - "$"
   - "*"
 
+hitchhiker_build_arch: "{{ ansible_machine }}"
+
 component_source_core: "core"
 component_source_hacs: "hacs"
 valid_component_sources:
