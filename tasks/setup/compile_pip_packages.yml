@@ -17,7 +17,7 @@
 
 - name: Prepare to compile Home-Assistant
   shell:
-    cmd: "pip3 install {{ pip_installation_arguments }} -e . \"
+    cmd: "pip3 install {{ pip_installation_arguments }} -e . \\"
     chdir: "{{ homeassistant_directory }}"
 
 - name: Compile Home-Assistant and dependencies
