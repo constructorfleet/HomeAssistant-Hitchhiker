@@ -17,6 +17,7 @@ hitchhiker_type: homeassistant
 hitchhiker_base_image: python:3.8.10-alpine3.13
 
 homeassistant_core_packages:
+  - python3-apt
   - bsd-compat-headers
   - eudev
   - eudev-libs
