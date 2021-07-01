@@ -74,7 +74,6 @@ homeassistant_required_pip_packages:
   - psycopg2==2.8.6
   - pyodbc==4.0.30
   - setuptools
-  - wheel
   
 homeaassistant_required_wheel_packages:
   - stdlib_list

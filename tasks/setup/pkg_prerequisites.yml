@@ -12,7 +12,7 @@
   pip:
     name:
       - setuptools
-      - wheels
+      - wheel
       - apt
       - apt_pkg
     state: present
