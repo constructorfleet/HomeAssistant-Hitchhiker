@@ -6,17 +6,17 @@
     state: present
   loop: "{{ homeassistant_core_packages }}"
 
-- name: Create symbolic link for locale header
-  file:
-    src: /usr/include/locale.h
-    dest: /usr/include/xlocale.h
-    state: link
-
 - name: Install base component packages
   package:
     name: "{{ item }}"
     state: present
   loop: "{{ homeassistant_base_component_packages }}"
+
+- name: Create symbolic link for locale header
+  file:
+    src: /usr/include/locale.h
+    dest: /usr/include/xlocale.h
+    state: link
 
 - name: Disable Avahi Daemon dbus
   replace:
