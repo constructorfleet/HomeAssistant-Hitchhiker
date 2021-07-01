@@ -7,43 +7,18 @@
     version: "{{ component.version }}"
     dest: /tmp/homeassistant
 
-- name: "Copy {{ component.name }} to {{ homeassistant_component_directory }}"
-  copy:
-    remote_src: yes
-    src: "/tmp/homeassistant/homeassistant/components/{{ component.name }}"
-    dest: "{{ homeassistant_component_directory }}/{{ component.name }}/"
+- name: Save component path and manifest path
+  set_fact:
+    component_curr_path: "/tmp/homeassistant/homeassistant/components/{{ component.name }}/"
+    component_dest_path: "{{ homeassistant_component_directory }}/{{ component.name }}/"
+    manifest_path: "{{ homeassistant_component_directory }}/{{ component.name }}/manifest.json"
+    component_temp_path: /tmp/homeassistant
+  when:
+    - '{{ "/tmp/hacs/custom_components/"~component.name is directory }}'
 
-- name: Check if component requires zeroconf
-  block:
-    - lineinfile:
-        name: "{{ homeassistant_component_directory }}/{{ component.name }}/manifest.json"
-        regexp: '^ *zeroconf.*$'
-        state: present
-      check_mode: yes
-      register: requires_zero_conf
+- include_tasks:
+    file: components/base
 
-    - set_fact:
-        homeassistant_enable_zeroconf: yes
-      when:
-        - (requires_zero_conf is changed) or (requires_zero_conf is failed)
 
-- name: Check if component requires ssdp
-  block:
-    - lineinfile:
-        name: "{{ homeassistant_component_directory }}/{{ component.name }}/manifest.json"
-        regexp: '^ *ssdp.*$'
-        state: present
-      check_mode: yes
-      register: requires_ssdp
-
-    - set_fact:
-        homeassistant_enable_ssdp: yes
-      when:
-        - (requires_ssdp is changed) or (requires_ssdp is failed)
-
-- name: Clean up
-  file:
-    path: /tmp/homeassistant
-    state: absent
 
 

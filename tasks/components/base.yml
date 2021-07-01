@@ -1,0 +1,47 @@
+---
+
+- name: "Copy {{ component.name }} to {{ homeassistant_component_directory }}"
+  copy:
+    remote_src: yes
+    src: "{{ component_curr_path }}"
+    dest: "{{ component_dest_path }}"
+
+- name: "Get python requirements for {{ component.name }}"
+  slurp:
+    src: "{{ manifest_path }}"
+  ignore_errors: yes
+  register: component_pip_requirements
+  ignore_errors: yes
+
+- name: Check if component requires zeroconf
+  block:
+    - lineinfile:
+        name: "{{ manifest_path }}"
+        regexp: '^ *zeroconf.*$'
+        state: present
+      check_mode: yes
+      register: requires_zero_conf
+
+    - set_fact:
+        homeassistant_enable_zeroconf: yes
+      when:
+        - (requires_zero_conf is changed) or (requires_zero_conf is failed)
+
+- name: Check if component requires ssdp
+  block:
+    - lineinfile:
+        name: "{{ manifest_path }}"
+        regexp: '^ *ssdp.*$'
+        state: present
+      check_mode: yes
+      register: requires_ssdp
+
+    - set_fact:
+        homeassistant_enable_ssdp: yes
+      when:
+        - (requires_ssdp is changed) or (requires_ssdp is failed)
+
+- name: Clean up
+  file:
+    path: "{{ component_temp_path }}"
+    state: absent

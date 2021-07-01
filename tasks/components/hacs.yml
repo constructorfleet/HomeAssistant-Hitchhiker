@@ -7,52 +7,37 @@
     version: "{{ component.version }}"
     dest: /tmp/hacs
 
-- name: "Copy {{ component.name }} to {{ homeassistant_config_directory }}"
+- name: "Locate {{ component.name }} in repo..."
   block:
-    - copy:
-        remote_src: yes
-        src: "/tmp/hacs/{{ component.name }}"
-        dest: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}"
+    - name: "Stat /tmp/hacs/{{ component.name }}"
+      stat:
+        path: tmp/hacs/{{ component.name }}
+      register: top_directory
+      ignore_errors: yes
+
+    - name: "Stat /tmp/hacs/custom_components/{{ component.name }}"
+      stat:
+        path: tmp/hacs/custom_components/{{ component.name }}
+      register: second_directory
+      ignore_errors: yes
+
+    - name: Save component path and manifest path
+      set_fact:
+        component_curr_path: "/tmp/hacs/{{ component.name }}/"
+        component_dest_path: "{{ homeassistant_component_directory }}/{{ component.name }}/"
+        manifest_path: "{{ homeassistant_component_directory }}/{{ component.name }}/manifest.json"
+        component_temp_path: /tmp/hacs
       when:
-        - '{{ "/tmp/hacs/"~component.name is directory }}'
-    - copy:
-        remote_src: yes
-        src: "/tmp/hacs/custom_components/{{ component.name }}"
-        dest: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}/"
+        - top_directory.stat.readable | default(False)
+
+    - name: Save component path and manifest path
+      set_fact:
+        component_curr_path: "/tmp/hacs/custom_components{{ component.name }}/"
+        component_dest_path: "{{ homeassistant_component_directory }}/{{ component.name }}/"
+        manifest_path: "{{ homeassistant_component_directory }}/{{ component.name }}/manifest.json"
+        component_temp_path: /tmp/hacs
       when:
-        - '{{ "/tmp/hacs/custom_components/"~component.name is directory }}'
+        - second_directory.stat.readable | default(False)
 
-- name: Check if component requires zeroconf
-  block:
-    - lineinfile:
-        name: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}/manifest.json"
-        regexp: '^ *zeroconf.*$'
-        state: present
-      check_mode: yes
-      register: requires_zero_conf
-
-    - set_fact:
-        homeassistant_enable_zeroconf: yes
-      when:
-        - (requires_zero_conf is changed) or (requires_zero_conf is failed)
-
-- name: Check if component requires ssdp
-  block:
-    - lineinfile:
-        name: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}/manifest.json"
-        regexp: '^ *ssdp.*$'
-        state: present
-      check_mode: yes
-      register: requires_ssdp
-
-    - set_fact:
-        homeassistant_enable_ssdp: yes
-      when:
-        - (requires_ssdp is changed) or (requires_ssdp is failed)
-
-- name: Clean up
-  file:
-    path: /tmp/hacs
-    state: absent
-
-
+- include_tasks:
+    file: components/base
