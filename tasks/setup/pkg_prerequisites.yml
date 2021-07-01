@@ -9,12 +9,8 @@
     cmd: apt update && apt install -y python3-apt python3-setuptools python3-virtualenv
 
 - name: Install python apt
-  pip:
-    name:
-      - setuptools
-      - wheel
-    state: present
-    executable: pip3
+  shell:
+    cmd: /usr/local/bin/python3 -m pip install setuptools wheel
 
 - name: Install required core packages
   apt:

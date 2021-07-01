@@ -15,25 +15,25 @@
 
 - name: Validate components manifests
   shell:
-    cmd: python3 -m script.hassfest
+    cmd: /usr/local/bin/python3 -m script.hassfest
     chdir: "{{ homeassistant_directory }}"
 
 - name: Generate Home-Assistant specific PIP requirements
   shell:
-    cmd: python3 -m gen_requirements_all
+    cmd: /usr/local/bin/python3 -m gen_requirements_all
     chdir: "{{ homeassistant_directory }}"
 
 - name: Install Home-Assistant specific PIP requirements
   shell:
-    cmd: "pip3 install {{ pip_installation_arguments }} -r requirements_all.txt"
+    cmd: "/usr/local/bin/python3 -m pip install {{ pip_installation_arguments }} -r requirements_all.txt"
     chdir: "{{ homeassistant_direc tory }}"
 
 - name: Prepare to compile Home-Assistant
   shell:
-    cmd: "pip3 install {{ pip_installation_arguments }} -e . \\"
+    cmd: "/usr/local/bin/python3 -m pip install {{ pip_installation_arguments }} -e . \\"
     chdir: "{{ homeassistant_directory }}"
 
 - name: Compile Home-Assistant and dependencies
   shell:
-    cmd: "python3 -m compileall homeassistant"
+    cmd: "/usr/local/bin/python3 -m compileall homeassistant"
     chdir: "{{ homeassistant_directory }}"
