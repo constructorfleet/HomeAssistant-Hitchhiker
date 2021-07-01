@@ -18,6 +18,9 @@
     autoclean: yes
     update_cache: yes
 
+- shell:
+    cmd: 'which git'
+
 #- name: Create symbolic link for locale header
 #  file:
 #    src: /usr/include/locale.h
