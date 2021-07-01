@@ -11,7 +11,6 @@
   loop: "{{ hitchhiker_user_list }}"
   loop_control:
     loop_var: user
-    index: "{{ user.username | default('Unknown User') }}"
 
 - name: Validate Hitchhiker user passwords
   assert:
@@ -23,7 +22,6 @@
   loop: "{{ hitchhiker_user_list }}"
   loop_control:
     loop_var: user
-    index: "{{ user.username | default('Unknown User') }}"
 
 - name: Validate Hitchhiker Home-Assistant coordinates
   assert:
