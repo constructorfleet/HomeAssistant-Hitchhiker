@@ -9,8 +9,6 @@
     name:
       - setuptools
       - wheel
-      - apt
-      - apt_pkg
     state: present
     executable: pip3
 
