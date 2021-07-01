@@ -67,7 +67,7 @@
   assert:
     that:
       - hitchhiker_homeassistant_components is defined
-      - hitchhiker_homeassistant_components | len > 0
+      - hitchhiker_homeassistant_components | length > 0
     fail_msg: "You must specify the components to install"
     success_msg: "Components are defined"
 
