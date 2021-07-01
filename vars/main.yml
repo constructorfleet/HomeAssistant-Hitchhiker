@@ -117,5 +117,5 @@ hitchhiker_working_directory: /usr/src/
 homeassistant_directory: "{{ hitchhiker_working_directory }}homeassistant"
 
 homeassistant_wheels_link: "https://wheels.home-assistant.io/alpine-3.12/{{ hitchhiker_build_arch }}/"
-pip_find_links_argument: '--find_links "{{ homeassistant_wheels_link }}"'
-pip_installation_arguments: '--no-cache-dir --no-index --only-binary=:all:'
+pip_find_links_argument: '--find_links {{ homeassistant_wheels_link }}'
+pip_installation_arguments: '--no-cache-dir --no-index --only-binary=:all: {{ pip_find_links_argument }}'

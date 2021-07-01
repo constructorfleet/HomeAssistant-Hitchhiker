@@ -25,7 +25,7 @@
 
 - name: Install Home-Assistant specific PIP requirements
   shell:
-    cmd: "pip3 install {{ pip_installation_arguments }} -r requirements_all.txt {{ pip_find_links_argument }}"
+    cmd: "pip3 install {{ pip_installation_arguments }} -r requirements_all.txt"
     chdir: "{{ homeassistant_direc tory }}"
 
 - name: Prepare to compile Home-Assistant

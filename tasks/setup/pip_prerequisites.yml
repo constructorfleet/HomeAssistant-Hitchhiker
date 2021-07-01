@@ -2,7 +2,7 @@
 
 - name: Install core pip prerequisites
   shell:
-    cmd: "pip3 install {{ pip_installation_arguments }} {{ item }} {{ pip_find_links_argument }}"
+    cmd: "pip3 install {{ pip_installation_arguments }} {{ item }}"
   loop: "{{ homeassistant_required_pip_packages }}"
 
 - name: Install core pip wheel requirements
