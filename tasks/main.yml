@@ -34,4 +34,4 @@
 
 - name: Install and complie python pip paackages
   include_tasks:
-    file: setup/compile_pip_requirement.yml
+    file: setup/compile_pip_packages.yml
