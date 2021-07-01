@@ -20,6 +20,7 @@
     state: present
     update_cache: yes
 
+
 - name: Install base component packages
   apt:
     name: "{{ homeassistant_base_component_packages }}"
