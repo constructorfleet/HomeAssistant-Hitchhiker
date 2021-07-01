@@ -13,6 +13,7 @@ hitchhiker_users: []
 
 hitchhiker_homeassistant_components: []
 
+hitchhiker_homeassistant_directory: /usr/src
 homeassistant_component_directory: "{{ hitchhiker_homeassistant_directory }}/homeassistant/components"
 homeassistant_config_directory: /config
 homeaasistant_custom_component_directory: "{{ homeassistant_config_directory }}/custom_components"
