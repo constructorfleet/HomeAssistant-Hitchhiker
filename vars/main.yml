@@ -21,6 +21,7 @@ homeassistant_core_packages:
   - eudev
   - eudev-libs
   - grep
+  - libc6-compat
   - libffi
   - libjpeg
   - libjpeg-turbo
@@ -30,7 +31,6 @@ homeassistant_core_packages:
   - openssl
   - pulseaudio-alsa
   - tiff
-  - git
 
 homeassistant_base_component_packages:
   - bluez
@@ -74,8 +74,8 @@ homeassistant_required_pip_packages:
   - psycopg2==2.8.6
   - pyodbc==4.0.30
   - setuptools
-  
-homeaassistant_required_wheel_packages:
+
+homeasisitant_required_wheels:
   - stdlib_list
   - tqdm
 
