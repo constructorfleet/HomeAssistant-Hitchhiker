@@ -1,5 +1,9 @@
 ---
 
+- name: Install python3-apt
+  shell:
+    cmd: "apt install -y python3-apt"
+
 - name: Install required core packages
   apt:
     name: "{{ homeassistant_core_packages }}"
