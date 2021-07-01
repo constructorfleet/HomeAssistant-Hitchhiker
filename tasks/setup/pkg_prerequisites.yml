@@ -1,34 +1,29 @@
 ---
 
-- name: Install apt-utils
-  shell:
-    cmd: apt update && apt install -y apt-utils
-
-- name: Install python3 supplimentary packages
-  shell:
-    cmd: apt update && apt install -y python3-apt python3-setuptools python3-virtualenv
-
-- name: Install python apt
-  shell:
-    cmd: /usr/local/bin/python3 -m pip install setuptools wheel
+- name: Install virtualenv
+  pip:
+    name: virtualenv
+    state: present
+    executable: pip3
 
 - name: Install required core packages
-  shell:
-    cmd: "apt update && apt install -y {{ homeassistant_core_packages | join(' ') }}"
+  package:
+    name: "{{ homeassistant_core_packages }}"
+    state: present
 
+- name: Symlink locale.h
+  file:
+    state: link
+    src: /usr/include/locale.h
+    dest: /usr/include/xlocale.h
 
 - name: Install base component packages
-  shell:
-    cmd: "apt update && apt install -y {{ homeassistant_base_component_packages | join(' ') }}"
+  package:
+    name: "{{ homeassistant_base_component_packages }}"
+    state: present
 
 - shell:
     cmd: 'which git'
-
-#- name: Create symbolic link for locale header
-#  file:
-#    src: /usr/include/locale.h
-#    dest: /usr/include/xlocale.h
-#    state: link
 
 - name: Disable Avahi Daemon dbus
   replace:

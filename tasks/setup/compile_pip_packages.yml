@@ -24,13 +24,18 @@
     chdir: "{{ homeassistant_directory }}"
 
 - name: Install Home-Assistant specific PIP requirements
-  shell:
-    cmd: "/usr/local/bin/python3 -m pip install {{ pip_installation_arguments }} -r requirements_all.txt"
-    chdir: "{{ homeassistant_direc tory }}"
+  pip:
+    requirements: requirements_all.txt
+    state: present
+    extra_args: "{{ pip_installation_arguments }}"
+    chdir: "{{ homeassistant_directory }}"
 
 - name: Prepare to compile Home-Assistant
-  shell:
-    cmd: "/usr/local/bin/python3 -m pip install {{ pip_installation_arguments }} -e . \\"
+  pip:
+    name: './homeassistant'
+    editable: yes
+    state: present
+    extra_args: "{{ pip_installation_arguments }}"
     chdir: "{{ homeassistant_directory }}"
 
 - name: Compile Home-Assistant and dependencies

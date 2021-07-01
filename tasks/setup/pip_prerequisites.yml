@@ -5,11 +5,13 @@
     cmd: python3 -m pip install -U pip
 
 - name: Install core pip prerequisites
-  shell:
-    cmd: "pip3 install {{ pip_installation_arguments }} {{ item }}"
-  loop: "{{ homeassistant_required_pip_packages }}"
+  pip:
+    name: "{{ homeassistant_required_pip_packages }}"
+    state: present
+    extra_args: "{{ pip_installation_arguments }}"
 
-- name: Install core pip wheel requirements
-  shell:
-    cmd: "pip3 install {{ item }} {{ pip_find_links_argument }}"
-  loop: "{{ homeaassistant_required_wheel_packages }}"
+- name: Install core wheel prerequisites
+  pip:
+    name: "{{ homeasisitant_required_wheels }}"
+    state: present
+    extra_args: "{{ pip_find_links_argument }}"

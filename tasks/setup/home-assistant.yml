@@ -5,9 +5,13 @@
     repo: "{{ minimized_homeassistant_repo }}"
     dest: "{{ homeassistant_directory }}"
     depth: 1
+    version: "{{ homeassistant_version | default('master') }}"
 
 - name: Prepare pip to install directly from VCS repository
-  shell:
-    cmd: "pip3 install {{ pip_installation_arguments }} -e ./homeassistant"
+  pip:
+    name: "{{ pip_installation_arguments }}"
+    state: present
+    extra_args: "{{ pip_installation_arguments }}"
     chdir: "{{ hitchhiker_working_directory }}"
+    editable: yes
 
