@@ -54,7 +54,7 @@
 - name: Validate Hitchhiker Home-Assistant log levels
   assert:
     that:
-      - log_level.value is in homeassistant_valid_log_levels
+      - log_level.value in homeassistant_valid_log_levels
       - log_level.key is string
     fail_msg: "Invalid log level, must be one of {{ homeassistant_valid_log_levels | join(', ') }}"
     success_msg: "Valid log level {{ log_level.value }} for {{ log_leve.key }}"
