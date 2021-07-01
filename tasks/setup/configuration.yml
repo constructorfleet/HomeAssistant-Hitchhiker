@@ -2,20 +2,20 @@
 
 - name: Remove any existing configuration directory
   file:
-    path: /config
+    path: "{{ homeassistant_config_directory }}"
     state: absent
 
 - name: Ensure configuration directory exists
   file:
-    path: /config
+    path: "{{ homeassistant_config_directory }}"
     state: directory
 
 - name: Rendor configuration file to /config
   template:
     src: configuration.yaml.j2
-    dest: /config/configuration.yaml
+    dest: "{{ homeassistant_config_directory }}/configuration.yaml"
 
 - name: Rendor customization file to /config
   template:
     src: customization.yaml.j2
-    dest: /config/customization.yaml
+    dest: "{{ homeassistant_config_directory }}/customization.yaml"

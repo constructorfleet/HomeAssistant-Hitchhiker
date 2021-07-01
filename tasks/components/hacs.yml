@@ -7,25 +7,25 @@
     version: "{{ component.version }}"
     dest: /tmp/hacs
 
-- name: "Copy {{ component.name }} to {{ homeassistant_component_directory }}"
+- name: "Copy {{ component.name }} to {{ homeassistant_config_directory }}"
   block:
     - copy:
         remote_src: yes
         src: "/tmp/hacs/{{ component.name }}"
-        dest: "{{ homeassistant_component_directory }}/{{ component.name }}"
+        dest: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}"
       when:
         - '{{ "/tmp/hacs/"~component.name is directory }}'
     - copy:
         remote_src: yes
         src: "/tmp/hacs/custom_components/{{ component.name }}"
-        dest: "{{ homeassistant_component_directory }}/{{ component.name }}/"
+        dest: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}/"
       when:
         - '{{ "/tmp/hacs/custom_components/"~component.name is directory }}'
 
 - name: Check if component requires zeroconf
   block:
     - lineinfile:
-        name: "{{ homeassistant_component_directory }}/{{ component.name }}/manifest.json"
+        name: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}/manifest.json"
         regexp: '^ *zeroconf.*$'
         state: present
       check_mode: yes
@@ -39,7 +39,7 @@
 - name: Check if component requires ssdp
   block:
     - lineinfile:
-        name: "{{ homeassistant_component_directory }}/{{ component.name }}/manifest.json"
+        name: "{{ homeaasistant_custom_component_directory }}/{{ component.name }}/manifest.json"
         regexp: '^ *ssdp.*$'
         state: present
       check_mode: yes
