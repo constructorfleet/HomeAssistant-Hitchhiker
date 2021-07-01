@@ -10,6 +10,11 @@
     path: "{{ homeassistant_config_directory }}"
     state: directory
 
+- name: Ensure custom component directory exists
+  file:
+    path: "{{ homeassistant_custom_component_directory }}"
+    state: directory
+
 - name: Rendor configuration file to /config
   template:
     src: configuration.yaml.j2
