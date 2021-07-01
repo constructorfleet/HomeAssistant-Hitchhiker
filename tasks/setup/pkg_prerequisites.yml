@@ -1,21 +1,21 @@
 ---
 
 - name: Install python3-apt
-  shell:
-    cmd: "apt install -y python3-apt"
+  apt:
+    name: python3-apt
+    state: present
+    update_cache: yes
 
 - name: Install required core packages
   apt:
     name: "{{ homeassistant_core_packages }}"
     state: present
-    autoclean: yes
     update_cache: yes
 
 - name: Install base component packages
   apt:
     name: "{{ homeassistant_base_component_packages }}"
     state: present
-    autoclean: yes
     update_cache: yes
 
 - shell:
