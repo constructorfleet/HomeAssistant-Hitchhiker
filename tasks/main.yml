@@ -20,6 +20,10 @@
   include_tasks:
     file: setup/home-assistant.yml
 
+- name: Render configuration files
+  include_tasks:
+    file: setup/configuration.yml
+
 - name: Install components
   include_tasks:
     file: "components/{{ component.src }}.yml"
@@ -31,7 +35,3 @@
 - name: Install and complie python pip paackages
   include_tasks:
     file: setup/compile_pip_requirement.yml
-
-- name: Render configuration files
-  include_tasks:
-    file: setup/configuration.yml
