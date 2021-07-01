@@ -6,12 +6,12 @@
       - user.username is defined
       - user.username | length > 0
       - (user.username | list) | intersect(invalid_username_characters) | length == 0
-    fail_msg: "Invalid username for user {{ user.username | default("NOT DEFINED") }}"
+    fail_msg: "Invalid username for user {{ user.username | default('NOT DEFINED') }}"
     success_msg: "All usernames are valid"
   loop: "{{ hitchhiker_user_list }}"
   loop_control:
     loop_var: user
-    index: "{{ user.username | default("Unknown User") }}"
+    index: "{{ user.username | default('Unknown User') }}"
 
 - name: Validate Hitchhiker user passwords
   assert:
@@ -23,7 +23,7 @@
   loop: "{{ hitchhiker_user_list }}"
   loop_control:
     loop_var: user
-    index: "{{ user.username | default("Unknown User") }}"
+    index: "{{ user.username | default('Unknown User') }}"
 
 - name: Validate Hitchhiker Home-Assistant coordinates
   assert:
