@@ -1,16 +1,18 @@
 ---
 
 - name: Install required core packages
-  package:
-    name: "{{ item }}"
+  apt:
+    name: "{{ homeassistant_core_packages }}"
     state: present
-  loop: "{{ homeassistant_core_packages }}"
+    autoclean: yes
+    update_cache: yes
 
 - name: Install base component packages
-  package:
-    name: "{{ item }}"
+  apt:
+    name: "{{ homeassistant_base_component_packages }}"
     state: present
-  loop: "{{ homeassistant_base_component_packages }}"
+    autoclean: yes
+    update_cache: yes
 
 #- name: Create symbolic link for locale header
 #  file:
