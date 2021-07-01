@@ -6,8 +6,8 @@
 - debug:
     var: dir_stat
 
-- stat:
-    path: "/usr/src"
+- shell:
+    cmd: "ls -lah /usr/src"
   register: dir_stat
 
 - debug:
