@@ -1,8 +1,12 @@
 ---
 
-- name: Install python3 pkgs
+- name: Install apt-utils
   shell:
-    cmd: apt update && apt install -y python3-setuptools python3-apt apt-utils
+    cmd: apt update && apt install -y apt-utils
+
+- name: Install python3 supplimentary packages
+  shell:
+    cmd: apt update && python3-setuptools python3-apt
 
 - name: Install python apt
   pip:
