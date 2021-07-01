@@ -2,8 +2,9 @@
 
 - name: Install required core packages
   package:
-    name: "{{ homeassistant_core_packages }}"
+    name: "{{ item }}"
     state: present
+  loop: "{{ homeassistant_core_packages }}"
 
 - name: Create symbolic link for locale header
   file:
@@ -13,8 +14,9 @@
 
 - name: Install base component packages
   package:
-    name: "{{ homeassistant_base_component_packages }}"
+    name: "{{ item }}"
     state: present
+  loop: "{{ homeassistant_base_component_packages }}"
 
 - name: Disable Avahi Daemon dbus
   replace:
