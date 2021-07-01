@@ -1,4 +1,17 @@
 ---
+- stat:
+    path: "{{ homeassistant_directory }}"
+  register: dir_stat
+
+- debug:
+    var: dir_stat
+
+- stat:
+    path: "/usr/src"
+  register: dir_stat
+
+- debug:
+    var: dir_stat
 
 - name: Validate components manifests
   shell:
