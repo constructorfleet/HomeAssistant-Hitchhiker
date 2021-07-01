@@ -2,10 +2,12 @@
 
 - name: Install core pip prerequisites
   pip:
-    name: "{{ homeassistant_required_pip_packages }}"
+    name: "{{ item }}"
     extra_args: "{{ pip_installation_arguments }}"
+  loop: "{{ homeassistant_required_pip_packages }}"
 
 - name: Install core pip wheel requirements
   pip:
-    name: "{{ homeaassistant_required_wheel_packages }}"
+    name: "{{ item }}"
     extra_args: "{{ pip_find_links_argument }}"
+  loop: "{{ homeaassistant_required_wheel_packages }}"
