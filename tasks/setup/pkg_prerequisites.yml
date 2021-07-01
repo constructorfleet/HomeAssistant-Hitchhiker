@@ -12,6 +12,8 @@
 - name: Install python apt
   pip:
     name:
+      - setuptools
+      - wheels
       - apt
       - apt_pkg
     state: present
