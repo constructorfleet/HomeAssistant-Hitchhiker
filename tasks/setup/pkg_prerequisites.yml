@@ -15,6 +15,7 @@
       - apt
       - apt_pkg
     state: present
+    executable: pip3
 
 - name: Install required core packages
   apt:
