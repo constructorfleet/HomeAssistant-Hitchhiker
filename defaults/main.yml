@@ -11,7 +11,10 @@ hitchhiker_admin_user:
 
 hitchhiker_users: []
 
-hitchhiker_homeassistant_components: []
+hitchhiker_homeassistant_components:
+  - src: core
+    version: 2021.3.1
+    name: hue
 
 hitchhiker_homeassistant_directory: /usr/src
 homeassistant_component_directory: "{{ hitchhiker_homeassistant_directory }}/homeassistant/components"
