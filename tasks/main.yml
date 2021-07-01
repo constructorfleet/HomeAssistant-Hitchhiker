@@ -27,7 +27,7 @@
 - name: Install components
   include_tasks:
     file: "components/{{ component.src }}.yml"
-  loop: "{{ homeassistant_components }}"
+  loop: "{{ homeassistant_components | default([]) }}"
   loop_control:
     loop_var: component
     label: "{{ component.name }} ({{ component.src }})"
