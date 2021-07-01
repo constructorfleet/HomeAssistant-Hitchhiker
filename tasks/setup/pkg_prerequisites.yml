@@ -13,17 +13,13 @@
     cmd: /usr/local/bin/python3 -m pip install setuptools wheel
 
 - name: Install required core packages
-  apt:
-    name: "{{ homeassistant_core_packages }}"
-    state: present
-    update_cache: yes
+  shell:
+    cmd: "apt update && apt install -y {{ homeassistant_core_packages | join(' ') }}"
 
 
 - name: Install base component packages
-  apt:
-    name: "{{ homeassistant_base_component_packages }}"
-    state: present
-    update_cache: yes
+  shell:
+    cmd: "apt update && apt install -y {{ homeassistant_base_component_packages | join(' ') }}"
 
 - shell:
     cmd: 'which git'
