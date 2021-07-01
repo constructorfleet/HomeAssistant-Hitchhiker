@@ -6,7 +6,7 @@
 
 - name: Install python3 supplimentary packages
   shell:
-    cmd: apt update && python3-apt
+    cmd: apt update && apt install -y python3-apt
 
 - name: Install python apt
   pip:
